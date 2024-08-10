@@ -1,25 +1,24 @@
 @echo off
 setlocal
 
-:: Define the username
-set USERNAME=domain\Mario
+set USERNAME=Mario
 set SERVER=nas.26.dengg.one
 
-:: Prompt for the password (input will not be visible)
 set /p PASSWORD=Please enter the password: 
 echo.
 
-:: Connect to the network shares
-net use D: \\%SERVER%\downloads /user:%USERNAME% %PASSWORD%
-net use G: \\%SERVER%\Gerlinde /user:%USERNAME% %PASSWORD%
-net use I: \\%SERVER%\images /user:%USERNAME% %PASSWORD%
-net use M: \\%SERVER%\MarioPrivat /user:%USERNAME% %PASSWORD%
-net use P: \\%SERVER%\projects /user:%USERNAME% %PASSWORD%
-net use T: \\%SERVER%\techwiz-services /user:%USERNAME% %PASSWORD%
-net use U: \\%SERVER%\techwiz-projects /user:%USERNAME% %PASSWORD%
-net use Y: \\%SERVER%\media /user:%USERNAME% %PASSWORD%
-net use Z: \\%SERVER%\fileZ /user:%USERNAME% %PASSWORD%
+:: Save the credentials using cmdkey
+cmdkey /add:%SERVER% /user:%USERNAME% /pass:%PASSWORD%
 
+net use D: \\%SERVER%\downloads /user:%USERNAME% /persistent:yes
+net use G: \\%SERVER%\Gerlinde /user:%USERNAME% /persistent:yes
+net use I: \\%SERVER%\images /user:%USERNAME% /persistent:yes
+net use M: \\%SERVER%\MarioPrivat /user:%USERNAME% /persistent:yes
+net use P: \\%SERVER%\projects /user:%USERNAME% /persistent:yes
+net use T: \\%SERVER%\techwiz-services /user:%USERNAME% /persistent:yes
+net use U: \\%SERVER%\techwiz-projects /user:%USERNAME% /persistent:yes
+net use Y: \\%SERVER%\media /user:%USERNAME% /persistent:yes
+net use Z: \\%SERVER%\fileZ /user:%USERNAME% /persistent:yes
 
 :: Check if the connections were successful
 if %errorlevel%==0 (
